@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maths (2U) Trial Papers · THSConline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --indigo:      #4f46e5;
+    --indigo-100:  #e0e7ff;
+    --indigo-50:   #eef2ff;
+    --slate-900:   #0f172a;
+    --slate-600:   #475569;
+    --slate-400:   #94a3b8;
+    --slate-200:   #e2e8f0;
+    --slate-100:   #f1f5f9;
+    --white:       #ffffff;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--white);
+    color: var(--slate-900);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* TOP NAV */
+  .topnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--slate-200);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark { width: 32px; height: 32px; background: var(--indigo); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .logo-text { font-size: 1rem; font-weight: 600; color: var(--slate-900); }
+  .upload-btn {
+    display: flex; align-items: center; gap: 7px;
+    border: 1.5px solid var(--slate-200); border-radius: 8px; padding: 0.45rem 1rem;
+    font-family: 'Inter', system-ui, sans-serif; font-size: 0.85rem; font-weight: 500;
+    color: var(--slate-900); background: var(--white); cursor: pointer; text-decoration: none;
+    transition: border-color 0.15s;
+  }
+  .upload-btn:hover { border-color: var(--indigo); color: var(--indigo); }
+
+  /* STICKY TABNAV */
+  .tabnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.6rem 2rem;
+    overflow-x: auto;
+    border-bottom: 3px solid var(--indigo);
+  }
+  .tab {
+    display: flex; align-items: center; gap: 7px; padding: 0.5rem 1rem;
+    border-radius: 6px; font-size: 0.875rem; font-weight: 500; color: #94a3b8;
+    text-decoration: none; white-space: nowrap; transition: background 0.15s, color 0.15s;
+  }
+  .tab:hover { background: rgba(255,255,255,0.08); color: #fff; }
+  .tab.active { background: var(--indigo); color: var(--white); }
+  .tab svg { opacity: 0.7; flex-shrink: 0; }
+  .tab.active svg { opacity: 1; }
+
+  /* CONTENT */
+  .content { max-width: 1000px; margin: 0 auto; padding: 0 2rem 3rem; }
+
+  .breadcrumb {
+    display: flex; align-items: center; gap: 6px;
+    padding: 1.25rem 0 0; font-size: 0.8rem; color: var(--slate-400); flex-wrap: wrap;
+  }
+  .breadcrumb a { color: var(--slate-400); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--indigo); }
+  .breadcrumb .current { color: var(--indigo); font-weight: 500; }
+
+  .page-header { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 0 0.5rem; }
+  .header-icon {
+    width: 52px; height: 52px; background: #fef2f2; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .header-dot { width: 18px; height: 18px; background: #ef4444; border-radius: 4px; }
+  .header-text h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; color: var(--slate-900); }
+  .header-underline { width: 36px; height: 3px; background: var(--indigo); border-radius: 2px; margin-top: 0.4rem; }
+
+  /* INFO BULLETS */
+  .info-bullets {
+    margin: 1rem 0 1.5rem;
+    padding: 0.85rem 1.1rem;
+    background: var(--indigo-50);
+    border: 1px solid var(--indigo-100);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .info-bullets li { font-size: 0.85rem; color: var(--slate-600); list-style: disc; margin-left: 1rem; }
+  .info-bullets a { color: var(--indigo); text-decoration: none; }
+  .info-bullets a:hover { text-decoration: underline; }
+
+  /* SEARCH */
+  .search-wrap { position: relative; margin-bottom: 1.25rem; }
+  .search-wrap svg { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--slate-400); pointer-events: none; }
+  .paper-search {
+    width: 100%; height: 44px; border: 1.5px solid var(--slate-200); border-radius: 10px;
+    padding: 0 1rem 0 2.6rem; font-family: 'Inter', system-ui, sans-serif; font-size: 0.9rem;
+    color: var(--slate-900); background: var(--slate-100); outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .paper-search::placeholder { color: var(--slate-400); }
+  .paper-search:focus { background: var(--white); border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
+
+  /* SCHOOL ACCORDION */
+  .school-group { border: 1.5px solid var(--slate-200); border-radius: 10px; margin-bottom: 0.5rem; overflow: hidden; }
+  .school-group.hidden { display: none; }
+
+  .school-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    background: var(--white);
+    transition: background 0.15s;
+    user-select: none;
+    list-style: none;
+  }
+  .school-header:hover { background: var(--slate-100); }
+  .school-header::-webkit-details-marker { display: none; }
+
+  .school-name { font-size: 0.9rem; font-weight: 600; color: var(--slate-900); }
+  .school-count { font-size: 0.75rem; color: var(--slate-400); margin-left: 0.5rem; }
+
+  .chevron {
+    color: var(--slate-400);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  details[open] .chevron { transform: rotate(180deg); }
+
+  .papers-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--slate-200);
+  }
+
+  .paper-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.55rem 1rem 0.55rem 2rem;
+    font-size: 0.85rem;
+    color: var(--indigo);
+    text-decoration: none;
+    border-bottom: 1px solid var(--slate-100);
+    transition: background 0.1s;
+  }
+  .paper-link:last-child { border-bottom: none; }
+  .paper-link:hover { background: var(--indigo-50); }
+
+  .paper-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--white);
+    background: #22c55e;
+    padding: 0.15rem 0.45rem;
+    border-radius: 99px;
+    flex-shrink: 0;
+  }
+
+  .no-results { display: none; text-align: center; padding: 2.5rem 0; color: var(--slate-400); font-size: 0.9rem; }
+
+  .page-footer { border-top: 1px solid var(--slate-200); padding: 1rem 2rem; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: var(--indigo); text-decoration: none; font-weight: 500;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  .bg-blob {
+    position: fixed; bottom: -80px; right: -60px; width: 340px; height: 260px;
+    background: var(--indigo-100); border-radius: 50%; opacity: 0.4;
+    pointer-events: none; filter: blur(60px); z-index: 0;
+  }
+
+  @media (max-width: 640px) {
+    .topnav, .tabnav, .page-footer { padding-left: 1rem; padding-right: 1rem; }
+    .content { padding-left: 1rem; padding-right: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-blob"></div>
+
+<nav class="topnav">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-mark">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <rect x="2" y="2" width="6" height="9" rx="1.5" fill="white" opacity="0.95"/>
+        <rect x="10" y="2" width="6" height="5" rx="1.5" fill="white" opacity="0.6"/>
+        <rect x="10" y="9" width="6" height="7" rx="1.5" fill="white" opacity="0.6"/>
+        <rect x="2" y="13" width="6" height="3" rx="1.5" fill="white" opacity="0.6"/>
+      </svg>
+    </div>
+    <span class="logo-text">thsconline</span>
+  </a>
+  <a href="#" class="upload-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    Upload Files
+  </a>
+</nav>
+
+<div class="tabnav">
+  <a href="index.html" class="tab">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    THSC Home
+  </a>
+  <a href="Year 9 Home.html" class="tab">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    Year 9
+  </a>
+  <a href="Year 10 Home.html" class="tab">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    Year 10
+  </a>
+  <a href="Year 11 Home.html" class="tab">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    Year 11 – Preliminary
+  </a>
+  <a href="Year 12 Home.html" class="tab active">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    Year 12 – HSC
+  </a>
+</div>
+
+<div class="content">
+
+  <div class="breadcrumb">
+    <a href="index.html">thsconline</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    <a href="Year 12 Home.html">Year 12 – HSC</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    <a href="Year 12 Math2U.html">Maths (2U)</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    <span class="current">Trial Papers</span>
+  </div>
+
+  <div class="page-header">
+    <div class="header-icon"><div class="header-dot"></div></div>
+    <div class="header-text">
+      <h1>HSC Maths Trial Papers</h1>
+      <div class="header-underline"></div>
+    </div>
+  </div>
+
+  <div class="info-bullets">
+    <li>Sample answers or marking guidelines included with most papers.</li>
+    <li>To contribute past papers or other practice questions, <a href="Work in progress.html">upload files here</a>.</li>
+  </div>
+
+  <div class="search-wrap">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input class="paper-search" type="search" id="paperSearch" placeholder="Search schools or years…" aria-label="Search papers">
+  </div>
+
+  <div id="schoolList">
+
+    <!-- ABBOTSLEIGH -->
+    <details class="school-group" data-school="abbotsleigh">
+      <summary class="school-header">
+        <span><span class="school-name">Abbotsleigh</span><span class="school-count">15 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Abbotsleigh 1991<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2001</a>
+        <a href="#" class="paper-link">Abbotsleigh 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Abbotsleigh 2025</a>
+      </div>
+    </details>
+
+    <!-- ASCHAM -->
+    <details class="school-group" data-school="ascham">
+      <summary class="school-header">
+        <span><span class="school-name">Ascham</span><span class="school-count">15 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Ascham 1999<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2000<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2001</a>
+        <a href="#" class="paper-link">Ascham 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2020</a>
+        <a href="#" class="paper-link">Ascham 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Ascham 2024<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- BARKER -->
+    <details class="school-group" data-school="barker">
+      <summary class="school-header">
+        <span><span class="school-name">Barker</span><span class="school-count">22 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Barker 1988<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 1989<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 1990<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 1999<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2000<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2001</a>
+        <a href="#" class="paper-link">Barker 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Barker 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- BAULKHAM HILLS -->
+    <details class="school-group" data-school="baulkham hills">
+      <summary class="school-header">
+        <span><span class="school-name">Baulkham Hills</span><span class="school-count">19 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Baulkham Hills 2004</a>
+        <a href="#" class="paper-link">Baulkham Hills 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Baulkham Hills 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- BLACKTOWN BOYS -->
+    <details class="school-group" data-school="blacktown boys">
+      <summary class="school-header">
+        <span><span class="school-name">Blacktown Boys</span><span class="school-count">7 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Blacktown Boys 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Blacktown Boys 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Blacktown Boys 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Blacktown Boys 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Blacktown Boys 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Blacktown Boys 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Blacktown Boys 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- CALLAGHAN JESMOND -->
+    <details class="school-group" data-school="callaghan jesmond">
+      <summary class="school-header">
+        <span><span class="school-name">Callaghan Jesmond</span><span class="school-count">1 paper</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Callaghan Jesmond 2014<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- CARINGBAH -->
+    <details class="school-group" data-school="caringbah">
+      <summary class="school-header">
+        <span><span class="school-name">Caringbah</span><span class="school-count">18 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Caringbah 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Caringbah 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- CHELTENHAM GIRLS -->
+    <details class="school-group" data-school="cheltenham girls">
+      <summary class="school-header">
+        <span><span class="school-name">Cheltenham Girls</span><span class="school-count">1 paper</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Cheltenham Girls 1994<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- CHERRYBROOK TECH -->
+    <details class="school-group" data-school="cherrybrook tech">
+      <summary class="school-header">
+        <span><span class="school-name">Cherrybrook Tech</span><span class="school-count">18 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Cherrybrook Tech 2001<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cherrybrook Tech 2022</a>
+      </div>
+    </details>
+
+    <!-- CRANBROOK -->
+    <details class="school-group" data-school="cranbrook">
+      <summary class="school-header">
+        <span><span class="school-name">Cranbrook</span><span class="school-count">12 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Cranbrook 1998<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 1999<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 2001<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Cranbrook 2023</a>
+      </div>
+    </details>
+
+    <!-- DANEBANK -->
+    <details class="school-group" data-school="danebank">
+      <summary class="school-header">
+        <span><span class="school-name">Danebank</span><span class="school-count">4 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Danebank 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Danebank 2021</a>
+        <a href="#" class="paper-link">Danebank 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Danebank 2023</a>
+      </div>
+    </details>
+
+    <!-- FORT ST -->
+    <details class="school-group" data-school="fort st">
+      <summary class="school-header">
+        <span><span class="school-name">Fort St</span><span class="school-count">20 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Fort St 1994<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Fort St 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- FRENSHAM -->
+    <details class="school-group" data-school="frensham">
+      <summary class="school-header">
+        <span><span class="school-name">Frensham</span><span class="school-count">3 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Frensham 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Frensham 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Frensham 2015<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- GIRRAWEEN -->
+    <details class="school-group" data-school="girraween">
+      <summary class="school-header">
+        <span><span class="school-name">Girraween</span><span class="school-count">19 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Girraween 1999</a>
+        <a href="#" class="paper-link">Girraween 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2009</a>
+        <a href="#" class="paper-link">Girraween 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Girraween 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- GLENWOOD -->
+    <details class="school-group" data-school="glenwood">
+      <summary class="school-header">
+        <span><span class="school-name">Glenwood</span><span class="school-count">6 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Glenwood 2014</a>
+        <a href="#" class="paper-link">Glenwood 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Glenwood 2021</a>
+        <a href="#" class="paper-link">Glenwood 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Glenwood 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Glenwood 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- GOSFORD -->
+    <details class="school-group" data-school="gosford">
+      <summary class="school-header">
+        <span><span class="school-name">Gosford</span><span class="school-count">17 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Gosford 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Gosford 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- HILLS GRAMMAR -->
+    <details class="school-group" data-school="hills grammar">
+      <summary class="school-header">
+        <span><span class="school-name">Hills Grammar</span><span class="school-count">11 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Hills Grammar 1989</a>
+        <a href="#" class="paper-link">Hills Grammar 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hills Grammar 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hills Grammar 2009</a>
+        <a href="#" class="paper-link">Hills Grammar 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hills Grammar 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hills Grammar 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hills Grammar 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hills Grammar 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hills Grammar 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hills Grammar 2025</a>
+      </div>
+    </details>
+
+    <!-- HORNSBY GIRLS -->
+    <details class="school-group" data-school="hornsby girls">
+      <summary class="school-header">
+        <span><span class="school-name">Hornsby Girls</span><span class="school-count">17 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Hornsby Girls 1999<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2001<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2012</a>
+        <a href="#" class="paper-link">Hornsby Girls 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hornsby Girls 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- HUNTERS HILL -->
+    <details class="school-group" data-school="hunters hill">
+      <summary class="school-header">
+        <span><span class="school-name">Hunters Hill</span><span class="school-count">8 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Hunters Hill 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hunters Hill 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hunters Hill 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hunters Hill 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hunters Hill 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hunters Hill 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hunters Hill 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hunters Hill 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- HURLSTONE -->
+    <details class="school-group" data-school="hurlstone">
+      <summary class="school-header">
+        <span><span class="school-name">Hurlstone</span><span class="school-count">17 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Hurlstone 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Hurlstone 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- INTERNATIONAL GRAMMAR -->
+    <details class="school-group" data-school="international grammar">
+      <summary class="school-header">
+        <span><span class="school-name">International Grammar</span><span class="school-count">6 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">International Grammar 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">International Grammar 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">International Grammar 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">International Grammar 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">International Grammar 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">International Grammar 2016<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- JAMES RUSE -->
+    <details class="school-group" data-school="james ruse">
+      <summary class="school-header">
+        <span><span class="school-name">James Ruse</span><span class="school-count">34 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">James Ruse 1992<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 1993<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 1994<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 1995<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 1996<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 1997<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 1998<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 1999<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2000<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2001<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2002<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">James Ruse 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- KAMBALA -->
+    <details class="school-group" data-school="kambala">
+      <summary class="school-header">
+        <span><span class="school-name">Kambala</span><span class="school-count">2 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Kambala 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kambala 2013<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- KILLARA -->
+    <details class="school-group" data-school="killara">
+      <summary class="school-header">
+        <span><span class="school-name">Killara</span><span class="school-count">14 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Killara 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Killara 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- KINCOPPAL -->
+    <details class="school-group" data-school="kincoppal">
+      <summary class="school-header">
+        <span><span class="school-name">Kincoppal</span><span class="school-count">5 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Kincoppal 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kincoppal 2004</a>
+        <a href="#" class="paper-link">Kincoppal 2005</a>
+        <a href="#" class="paper-link">Kincoppal 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kincoppal 2008<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- KINGS -->
+    <details class="school-group" data-school="kings">
+      <summary class="school-header">
+        <span><span class="school-name">Kings</span><span class="school-count">10 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Kings 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kings 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kings 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kings 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kings 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kings 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kings 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kings 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kings 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kings 2022<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- KINROSS WOLAROI -->
+    <details class="school-group" data-school="kinross wolaroi">
+      <summary class="school-header">
+        <span><span class="school-name">Kinross Wolaroi</span><span class="school-count">4 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Kinross Wolaroi 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kinross Wolaroi 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kinross Wolaroi 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kinross Wolaroi 2016<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- KIRRAWEE -->
+    <details class="school-group" data-school="kirrawee">
+      <summary class="school-header">
+        <span><span class="school-name">Kirrawee</span><span class="school-count">6 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Kirrawee 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kirrawee 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kirrawee 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kirrawee 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kirrawee 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Kirrawee 2018<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- KNOX -->
+    <details class="school-group" data-school="knox">
+      <summary class="school-header">
+        <span><span class="school-name">Knox</span><span class="school-count">16 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Knox 1991<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 1994<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 2001<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 2003</a>
+        <a href="#" class="paper-link">Knox 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 2010</a>
+        <a href="#" class="paper-link">Knox 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Knox 2022</a>
+        <a href="#" class="paper-link">Knox 2023</a>
+        <a href="#" class="paper-link">Knox 2024<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- LORETO KIRRIBILLI -->
+    <details class="school-group" data-school="loreto kirribilli">
+      <summary class="school-header">
+        <span><span class="school-name">Loreto Kirribilli</span><span class="school-count">1 paper</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Loreto Kirribilli 2001<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- MANLY -->
+    <details class="school-group" data-school="manly">
+      <summary class="school-header">
+        <span><span class="school-name">Manly</span><span class="school-count">15 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Manly 2001</a>
+        <a href="#" class="paper-link">Manly 2002</a>
+        <a href="#" class="paper-link">Manly 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Manly 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- MEREWETHER -->
+    <details class="school-group" data-school="merewether">
+      <summary class="school-header">
+        <span><span class="school-name">Merewether</span><span class="school-count">1 paper</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Merewether 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- MLC -->
+    <details class="school-group" data-school="mlc">
+      <summary class="school-header">
+        <span><span class="school-name">MLC</span><span class="school-count">1 paper</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">MLC 2016<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- MORIAH -->
+    <details class="school-group" data-school="moriah">
+      <summary class="school-header">
+        <span><span class="school-name">Moriah</span><span class="school-count">2 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Moriah 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Moriah 2023<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- NEWCASTLE GRAMMAR -->
+    <details class="school-group" data-school="newcastle grammar">
+      <summary class="school-header">
+        <span><span class="school-name">Newcastle Grammar</span><span class="school-count">3 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Newcastle Grammar 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newcastle Grammar 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newcastle Grammar 2011<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- NEWINGTON -->
+    <details class="school-group" data-school="newington">
+      <summary class="school-header">
+        <span><span class="school-name">Newington</span><span class="school-count">14 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Newington 1989<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 1999<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Newington 2024</a>
+      </div>
+    </details>
+
+    <!-- NORMANHURST BOYS -->
+    <details class="school-group" data-school="normanhurst boys">
+      <summary class="school-header">
+        <span><span class="school-name">Normanhurst Boys</span><span class="school-count">15 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Normanhurst Boys 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Normanhurst Boys 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- NORTH SYDNEY BOYS -->
+    <details class="school-group" data-school="north sydney boys">
+      <summary class="school-header">
+        <span><span class="school-name">North Sydney Boys</span><span class="school-count">20 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">North Sydney Boys 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Boys 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- NORTH SYDNEY GIRLS -->
+    <details class="school-group" data-school="north sydney girls">
+      <summary class="school-header">
+        <span><span class="school-name">North Sydney Girls</span><span class="school-count">22 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">North Sydney Girls 1989<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 1998<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 1999<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">North Sydney Girls 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- PENRITH -->
+    <details class="school-group" data-school="penrith">
+      <summary class="school-header">
+        <span><span class="school-name">Penrith</span><span class="school-count">15 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Penrith 2006</a>
+        <a href="#" class="paper-link">Penrith 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Penrith 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- PITTWATER HOUSE -->
+    <details class="school-group" data-school="pittwater house">
+      <summary class="school-header">
+        <span><span class="school-name">Pittwater House</span><span class="school-count">1 paper</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Pittwater House 2004<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- PORT HACKING -->
+    <details class="school-group" data-school="port hacking">
+      <summary class="school-header">
+        <span><span class="school-name">Port Hacking</span><span class="school-count">1 paper</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Port Hacking 2014<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- PRESBYTERIAN -->
+    <details class="school-group" data-school="presbyterian">
+      <summary class="school-header">
+        <span><span class="school-name">Presbyterian</span><span class="school-count">9 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Presbyterian 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Presbyterian 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Presbyterian 2011</a>
+        <a href="#" class="paper-link">Presbyterian 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Presbyterian 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Presbyterian 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Presbyterian 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Presbyterian 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Presbyterian 2021</a>
+      </div>
+    </details>
+
+    <!-- PYMBLE -->
+    <details class="school-group" data-school="pymble">
+      <summary class="school-header">
+        <span><span class="school-name">Pymble</span><span class="school-count">19 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Pymble 1997<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 1999<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2002<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2017</a>
+        <a href="#" class="paper-link">Pymble 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Pymble 2025</a>
+      </div>
+    </details>
+
+    <!-- RAVENSWOOD -->
+    <details class="school-group" data-school="ravenswood">
+      <summary class="school-header">
+        <span><span class="school-name">Ravenswood</span><span class="school-count">1 paper</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Ravenswood 2021<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- RIVERVIEW -->
+    <details class="school-group" data-school="riverview">
+      <summary class="school-header">
+        <span><span class="school-name">Riverview</span><span class="school-count">14 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Riverview 2001<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2002<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2003</a>
+        <a href="#" class="paper-link">Riverview 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Riverview 2024<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- ROSEVILLE -->
+    <details class="school-group" data-school="roseville">
+      <summary class="school-header">
+        <span><span class="school-name">Roseville</span><span class="school-count">9 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Roseville 1990</a>
+        <a href="#" class="paper-link">Roseville 1995<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Roseville 2001<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Roseville 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Roseville 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Roseville 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Roseville 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Roseville 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Roseville 2024</a>
+      </div>
+    </details>
+
+    <!-- SCEGGS -->
+    <details class="school-group" data-school="sceggs">
+      <summary class="school-header">
+        <span><span class="school-name">SCEGGS</span><span class="school-count">11 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">SCEGGS 2000<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">SCEGGS 2001<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">SCEGGS 2002<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">SCEGGS 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">SCEGGS 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">SCEGGS 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">SCEGGS 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">SCEGGS 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">SCEGGS 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">SCEGGS 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">SCEGGS 2010<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- SCOTS -->
+    <details class="school-group" data-school="scots">
+      <summary class="school-header">
+        <span><span class="school-name">Scots</span><span class="school-count">8 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Scots 2000<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Scots 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Scots 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Scots 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Scots 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Scots 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Scots 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Scots 2011<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- SHORE -->
+    <details class="school-group" data-school="shore">
+      <summary class="school-header">
+        <span><span class="school-name">Shore</span><span class="school-count">11 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Shore 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Shore 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Shore 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Shore 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Shore 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Shore 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Shore 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Shore 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Shore 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Shore 2024</a>
+      </div>
+    </details>
+
+    <!-- ST CATHERINES -->
+    <details class="school-group" data-school="st catherines">
+      <summary class="school-header">
+        <span><span class="school-name">St Catherines</span><span class="school-count">6 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">St Catherines 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St Catherines 2008</a>
+        <a href="#" class="paper-link">St Catherines 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St Catherines 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St Catherines 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St Catherines 2016<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- ST GEORGE GIRLS -->
+    <details class="school-group" data-school="st george girls">
+      <summary class="school-header">
+        <span><span class="school-name">St George Girls</span><span class="school-count">22 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">St George Girls 2002<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">St George Girls 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- STELLA MARIS -->
+    <details class="school-group" data-school="stella maris">
+      <summary class="school-header">
+        <span><span class="school-name">Stella Maris</span><span class="school-count">2 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Stella Maris 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Stella Maris 2009</a>
+      </div>
+    </details>
+
+    <!-- SYDNEY BOYS -->
+    <details class="school-group" data-school="sydney boys">
+      <summary class="school-header">
+        <span><span class="school-name">Sydney Boys</span><span class="school-count">24 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Sydney Boys 1996<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2002<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Boys 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- SYDNEY GIRLS -->
+    <details class="school-group" data-school="sydney girls">
+      <summary class="school-header">
+        <span><span class="school-name">Sydney Girls</span><span class="school-count">22 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Sydney Girls 2000<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2002<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Girls 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- SYDNEY GRAMMAR -->
+    <details class="school-group" data-school="sydney grammar">
+      <summary class="school-header">
+        <span><span class="school-name">Sydney Grammar</span><span class="school-count">32 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Sydney Grammar 1995<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 1996</a>
+        <a href="#" class="paper-link">Sydney Grammar 1997<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 1998<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 1999<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2000<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2001<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2002<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Grammar 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- SYDNEY TECH -->
+    <details class="school-group" data-school="sydney tech">
+      <summary class="school-header">
+        <span><span class="school-name">Sydney Tech</span><span class="school-count">26 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Sydney Tech 2000<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2002<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2003<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2004<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2005<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2006<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2007<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2008<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2009<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2010<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2011<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2012<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2013<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2014<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2017<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2018<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2021<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2024<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Sydney Tech 2025<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- TRINITY GRAMMAR -->
+    <details class="school-group" data-school="trinity grammar">
+      <summary class="school-header">
+        <span><span class="school-name">Trinity Grammar</span><span class="school-count">9 papers</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Trinity Grammar 1997<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Trinity Grammar 2015<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Trinity Grammar 2016<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Trinity Grammar 2019<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Trinity Grammar 2020<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Trinity Grammar 2022<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Trinity Grammar 2023<span class="paper-badge">w/ sol</span></a>
+        <a href="#" class="paper-link">Trinity Grammar 2024<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+    <!-- WESTFIELD SPORTS -->
+    <details class="school-group" data-school="westfield sports">
+      <summary class="school-header">
+        <span><span class="school-name">Westfield Sports</span><span class="school-count">1 paper</span></span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="papers-list">
+        <a href="#" class="paper-link">Westfield Sports 2008<span class="paper-badge">w/ sol</span></a>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="no-results" id="noResults">No schools or papers match your search.</div>
+
+</div>
+
+<div class="page-footer">
+  <a href="Year 12 Math2U.html" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to Maths Resources
+  </a>
+</div>
+
+<script>
+  const searchInput = document.getElementById('paperSearch');
+  const noResults = document.getElementById('noResults');
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase().trim();
+    let anyVisible = false;
+
+    document.querySelectorAll('.school-group').forEach(group => {
+      const schoolName = group.dataset.school || '';
+      const papers = group.querySelectorAll('.paper-link');
+      let schoolMatches = schoolName.includes(query);
+      let paperVisible = 0;
+
+      papers.forEach(paper => {
+        const text = paper.textContent.toLowerCase();
+        const show = query === '' || text.includes(query) || schoolMatches;
+        paper.style.display = show ? '' : 'none';
+        if (show) paperVisible++;
+      });
+
+      const groupVisible = query === '' || schoolMatches || paperVisible > 0;
+      group.classList.toggle('hidden', !groupVisible);
+      if (groupVisible) {
+        anyVisible = true;
+        // Auto-open groups with matching papers when searching
+        if (query !== '' && paperVisible > 0) group.open = true;
+        else if (query === '') group.open = false;
+      }
+    });
+
+    noResults.style.display = anyVisible ? 'none' : 'block';
+  });
+</script>
+
+</body>
+</html>
