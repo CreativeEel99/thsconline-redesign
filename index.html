@@ -24,9 +24,7 @@
     --white:      #ffffff;
   }
 
-  html, body {
-    height: 100%;
-  }
+  html, body { height: 100%; }
 
   body {
     font-family: 'Inter', system-ui, sans-serif;
@@ -86,7 +84,6 @@
   }
 
   .nav-right a:hover { color: var(--indigo); }
-
   .nav-right svg { opacity: 0.6; }
 
   /* PAGE LAYOUT */
@@ -113,9 +110,7 @@
     margin-bottom: 0.525rem;
   }
 
-  h1 span {
-    color: var(--indigo);
-  }
+  h1 span { color: var(--indigo); }
 
   .underline-accent {
     width: 72px;
@@ -139,13 +134,14 @@
     margin-bottom: 3.75rem;
   }
 
-  .search-box svg {
+  .search-icon {
     position: absolute;
     left: 1.5rem;
     top: 50%;
     transform: translateY(-50%);
     color: var(--slate-400);
     pointer-events: none;
+    z-index: 1;
   }
 
   .search-input {
@@ -169,13 +165,106 @@
     box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
   }
 
+  /* open state — square bottom corners when dropdown is visible */
+  .search-input.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-color: var(--indigo);
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+  }
+
+  /* DROPDOWN */
+  .search-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border: 2.25px solid var(--indigo);
+    border-top: none;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 0 12px 32px rgba(79,70,229,0.10);
+    z-index: 100;
+    overflow: hidden;
+    max-height: 340px;
+    overflow-y: auto;
+  }
+
+  .search-dropdown.visible { display: block; }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    color: var(--slate-900);
+    font-size: 1.125rem;
+    border-bottom: 1px solid var(--slate-200);
+    transition: background 0.1s;
+    cursor: pointer;
+  }
+
+  .dropdown-item:last-child { border-bottom: none; }
+
+  .dropdown-item:hover,
+  .dropdown-item.active {
+    background: var(--indigo-50);
+    color: var(--indigo);
+  }
+
+  .dropdown-item:hover .item-year,
+  .dropdown-item.active .item-year { color: var(--indigo-mid); }
+
+  .item-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .item-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--indigo-50);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--indigo);
+  }
+
+  .item-name { font-weight: 500; }
+
+  .item-year {
+    font-size: 0.9rem;
+    color: var(--slate-400);
+    font-weight: 400;
+    margin-top: 1px;
+  }
+
+  .item-arrow {
+    color: var(--slate-400);
+    flex-shrink: 0;
+  }
+
+  .dropdown-item:hover .item-arrow,
+  .dropdown-item.active .item-arrow { color: var(--indigo); }
+
+  .dropdown-empty {
+    padding: 1.25rem 1.5rem;
+    color: var(--slate-400);
+    font-size: 1.05rem;
+    text-align: center;
+  }
+
   /* STATS */
   .stats {
     display: flex;
     gap: 3rem;
   }
-
-  .stat-item {}
 
   .stat-num {
     font-size: 2.025rem;
@@ -198,8 +287,6 @@
   }
 
   /* RIGHT COLUMN — CARDS */
-  .right {}
-
   .cards-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -257,10 +344,7 @@
     margin-top: 0.225rem;
   }
 
-  .card-arrow {
-    color: var(--indigo);
-    flex-shrink: 0;
-  }
+  .card-arrow { color: var(--indigo); flex-shrink: 0; }
 
   /* FOOTER DECORATION */
   .bg-blob {
@@ -349,9 +433,19 @@
     <div class="underline-accent"></div>
     <p class="hero-sub">Practice past papers for the NSW HSC from schools of all levels across the state.</p>
 
-    <div class="search-box">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input class="search-input" type="search" placeholder="Search subjects…" aria-label="Search subjects">
+    <div class="search-box" id="searchBox">
+      <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input
+        class="search-input"
+        type="search"
+        id="searchInput"
+        placeholder="Search subjects…"
+        aria-label="Search subjects"
+        aria-autocomplete="list"
+        aria-controls="searchDropdown"
+        autocomplete="off"
+      >
+      <div class="search-dropdown" id="searchDropdown" role="listbox" aria-label="Subject results"></div>
     </div>
 
     <div class="stats">
@@ -381,7 +475,6 @@
   <div class="right">
     <div class="cards-grid">
 
-      <!-- Stage 5, Year 9 -->
       <a href="Year 9 Home.html" class="year-card">
         <div class="card-icon-wrap">
           <svg width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
@@ -395,7 +488,6 @@
         </div>
       </a>
 
-      <!-- Stage 5, Year 10 -->
       <a href="Year 10 Home.html" class="year-card">
         <div class="card-icon-wrap">
           <svg width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
@@ -409,7 +501,6 @@
         </div>
       </a>
 
-      <!-- Preliminary, Year 11 -->
       <a href="Year 11 Home.html" class="year-card">
         <div class="card-icon-wrap">
           <svg width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
@@ -423,7 +514,6 @@
         </div>
       </a>
 
-      <!-- HSC, Year 12 -->
       <a href="Year 12 Home.html" class="year-card">
         <div class="card-icon-wrap">
           <svg width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
@@ -441,6 +531,175 @@
   </div>
 
 </div>
+
+<script>
+  // ─── Subject data ────────────────────────────────────────────────────────────
+  // Each entry: { name, year, href }
+  // Update href values to match your actual page filenames.
+  // Add or remove subjects as needed.
+  const SUBJECTS = [
+    // Year 9
+    { name: "English",            year: "Year 9",  href: "Year 9 Home.html" },
+    { name: "Mathematics",        year: "Year 9",  href: "Year 9 Home.html" },
+    { name: "Science",            year: "Year 9",  href: "Year 9 Home.html" },
+    { name: "History",            year: "Year 9",  href: "Year 9 Home.html" },
+    { name: "Geography",          year: "Year 9",  href: "Year 9 Home.html" },
+    // Year 10
+    { name: "English",            year: "Year 10", href: "Year 10 Home.html" },
+    { name: "Mathematics",        year: "Year 10", href: "Year 10 Home.html" },
+    { name: "Science",            year: "Year 10", href: "Year 10 Home.html" },
+    { name: "History",            year: "Year 10", href: "Year 10 Home.html" },
+    { name: "Geography",          year: "Year 10", href: "Year 10 Home.html" },
+    // Year 11 Preliminary
+    { name: "English Advanced",   year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "English Standard",   year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "Mathematics Advanced",year: "Year 11 Preliminary",href: "Year 11 Home.html" },
+    { name: "Mathematics Standard",year: "Year 11 Preliminary",href: "Year 11 Home.html" },
+    { name: "Biology",            year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "Chemistry",          year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "Physics",            year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "Modern History",     year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "Ancient History",    year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "Economics",          year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "Business Studies",   year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "Legal Studies",      year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "Geography",          year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    { name: "PDHPE",              year: "Year 11 Preliminary", href: "Year 11 Home.html" },
+    // Year 12 HSC
+    { name: "English Advanced",   year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "English Standard",   year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Mathematics Advanced",year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Mathematics Standard 2",year: "Year 12 HSC",href: "Year 12 Home.html" },
+    { name: "Mathematics Extension 1",year: "Year 12 HSC",href: "Year 12 Home.html" },
+    { name: "Mathematics Extension 2",year: "Year 12 HSC",href: "Year 12 Home.html" },
+    { name: "Biology",            year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Chemistry",          year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Physics",            year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Modern History",     year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Ancient History",    year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Economics",          year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Business Studies",   year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Legal Studies",      year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Geography",          year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "PDHPE",              year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Society and Culture",year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Studies of Religion I", year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Studies of Religion II",year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Software Design and Development", year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Design and Technology", year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Visual Arts",        year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Music 1",            year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Music 2",            year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Drama",              year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Engineering Studies",year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Industrial Technology", year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Food Technology",    year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "Textiles and Design",year: "Year 12 HSC", href: "Year 12 Home.html" },
+  ];
+
+  // Subject page icon SVG (book icon)
+  const ICON_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
+  const ARROW_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+
+  // ─── DOM refs ─────────────────────────────────────────────────────────────────
+  const input    = document.getElementById('searchInput');
+  const dropdown = document.getElementById('searchDropdown');
+  let activeIndex = -1;
+
+  // ─── Filter & render ─────────────────────────────────────────────────────────
+  function renderDropdown(query) {
+    const q = query.trim().toLowerCase();
+    if (!q) { closeDropdown(); return; }
+
+    const matches = SUBJECTS.filter(s =>
+      s.name.toLowerCase().includes(q) || s.year.toLowerCase().includes(q)
+    ).slice(0, 8);
+
+    if (matches.length === 0) {
+      dropdown.innerHTML = `<div class="dropdown-empty">No subjects found for "${query}"</div>`;
+    } else {
+      dropdown.innerHTML = matches.map((s, i) => `
+        <a class="dropdown-item" href="${s.href}" role="option" data-index="${i}">
+          <div class="item-left">
+            <div class="item-icon">${ICON_SVG}</div>
+            <div>
+              <div class="item-name">${highlight(s.name, q)}</div>
+              <div class="item-year">${s.year}</div>
+            </div>
+          </div>
+          <div class="item-arrow">${ARROW_SVG}</div>
+        </a>
+      `).join('');
+    }
+
+    activeIndex = -1;
+    openDropdown();
+  }
+
+  // Wrap matching text in a highlight span
+  function highlight(text, query) {
+    const idx = text.toLowerCase().indexOf(query);
+    if (idx === -1) return text;
+    return text.slice(0, idx)
+      + `<mark style="background:var(--indigo-100);color:var(--indigo);border-radius:3px;padding:0 2px;">`
+      + text.slice(idx, idx + query.length)
+      + `</mark>`
+      + text.slice(idx + query.length);
+  }
+
+  function openDropdown() {
+    dropdown.classList.add('visible');
+    input.classList.add('open');
+  }
+
+  function closeDropdown() {
+    dropdown.classList.remove('visible');
+    input.classList.remove('open');
+    activeIndex = -1;
+  }
+
+  // ─── Keyboard navigation ──────────────────────────────────────────────────────
+  input.addEventListener('keydown', (e) => {
+    const items = dropdown.querySelectorAll('.dropdown-item');
+    if (!dropdown.classList.contains('visible') || items.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIndex = Math.min(activeIndex + 1, items.length - 1);
+      updateActive(items);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIndex = Math.max(activeIndex - 1, 0);
+      updateActive(items);
+    } else if (e.key === 'Enter' && activeIndex >= 0) {
+      e.preventDefault();
+      items[activeIndex].click();
+    } else if (e.key === 'Escape') {
+      closeDropdown();
+      input.blur();
+    }
+  });
+
+  function updateActive(items) {
+    items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+    if (activeIndex >= 0) items[activeIndex].scrollIntoView({ block: 'nearest' });
+  }
+
+  // ─── Input event ─────────────────────────────────────────────────────────────
+  input.addEventListener('input', () => renderDropdown(input.value));
+
+  // Close when clicking outside
+  document.addEventListener('mousedown', (e) => {
+    if (!document.getElementById('searchBox').contains(e.target)) {
+      closeDropdown();
+    }
+  });
+
+  // Re-open on focus if there's already a query
+  input.addEventListener('focus', () => {
+    if (input.value.trim()) renderDropdown(input.value);
+  });
+</script>
 
 </body>
 </html>
