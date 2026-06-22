@@ -30,13 +30,11 @@
     min-height: 100vh;
   }
 
-  /* TOP NAV */
   .topnav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
-
   }
 
   .nav-logo {
@@ -80,7 +78,6 @@
   }
   .upload-btn:hover { border-color: var(--indigo); color: var(--indigo); }
 
-  /* TABS */
   .tabnav {
     background: #0f172a;
     display: flex;
@@ -109,14 +106,12 @@
   .tab svg { opacity: 0.7; flex-shrink: 0; }
   .tab.active svg { opacity: 1; }
 
-  /* CONTENT */
   .content {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 2rem 3rem;
   }
 
-  /* BREADCRUMB */
   .breadcrumb {
     display: flex;
     align-items: center;
@@ -129,7 +124,6 @@
   .breadcrumb a:hover { color: var(--indigo); }
   .breadcrumb .current { color: var(--indigo); font-weight: 500; }
 
-  /* PAGE HEADER */
   .page-header {
     display: flex;
     align-items: center;
@@ -165,7 +159,6 @@
     margin-top: 0.4rem;
   }
 
-  /* SEARCH */
   .search-wrap {
     position: relative;
     margin-bottom: 1.25rem;
@@ -198,7 +191,6 @@
     box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
   }
 
-  /* NO RESULTS */
   .no-results {
     display: none;
     text-align: center;
@@ -207,7 +199,7 @@
     font-size: 0.9rem;
   }
 
-  /* ── CARD VIEW (default) ── */
+  /* ── CARD VIEW ── */
   .subjects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
@@ -228,12 +220,20 @@
     font-weight: 500;
     transition: border-color 0.15s, box-shadow 0.15s;
     line-height: 1.3;
+    scroll-margin-top: 1rem;
   }
   .subject-card:hover {
     border-color: var(--indigo);
     box-shadow: 0 2px 12px rgba(79,70,229,0.08);
   }
   .subject-card.hidden { display: none; }
+
+  /* Highlight state — applied via JS when arriving from search */
+  .subject-card.search-highlight {
+    border-color: var(--indigo);
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.15), 0 4px 16px rgba(79,70,229,0.12);
+    background: var(--indigo-50);
+  }
 
   .subject-dot {
     width: 10px;
@@ -253,16 +253,26 @@
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.3rem 0;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
     text-decoration: none;
     color: var(--indigo);
     font-size: 0.875rem;
-    transition: opacity 0.15s;
+    transition: opacity 0.15s, background 0.15s;
+    scroll-margin-top: 1rem;
   }
   .subject-list-item:hover { opacity: 0.75; }
   .subject-list-item.hidden { display: none; }
 
-  /* folder icon */
+  /* Highlight state for list view */
+  .subject-list-item.search-highlight {
+    background: var(--indigo-50);
+    color: var(--indigo);
+    font-weight: 600;
+    border-radius: 6px;
+    outline: 1.5px solid var(--indigo);
+  }
+
   .folder-icon {
     width: 20px;
     height: 16px;
@@ -282,11 +292,9 @@
     filter: brightness(1.15);
   }
 
-  /* ── ACTIVE VIEW STATES ── */
   body.list-view .subjects-grid { display: none; }
   body.list-view .subjects-list { display: grid; }
 
-  /* FOOTER */
   .page-footer {
     border-top: 1px solid var(--slate-200);
     padding: 1rem 2rem;
@@ -303,6 +311,29 @@
     background: none;
     border: none;
     font-family: inherit;
+  }
+
+  /* Toast notification */
+  .search-toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: var(--slate-900);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.6rem 1.25rem;
+    border-radius: 99px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    white-space: nowrap;
+    z-index: 999;
+  }
+  .search-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
 
   .bg-blob {
@@ -329,6 +360,7 @@
 <body>
 
 <div class="bg-blob"></div>
+<div class="search-toast" id="searchToast"></div>
 
 <!-- TOP NAV -->
 <nav class="topnav">
@@ -475,31 +507,29 @@
 </div>
 
 <script>
-  const search = document.getElementById('subjectSearch');
-  const noResults = document.getElementById('noResults');
+  const search      = document.getElementById('subjectSearch');
+  const noResults   = document.getElementById('noResults');
   const changeViewBtn = document.getElementById('changeViewBtn');
-  let isListView = false;
+  const toast       = document.getElementById('searchToast');
+  let isListView    = false;
 
-  // Filter both views simultaneously
+  // ── Filter (existing behaviour) ───────────────────────────────────────────
   search.addEventListener('input', () => {
     const query = search.value.toLowerCase().trim();
+    const activeClass = isListView ? '.subject-list-item' : '.subject-card';
     let visible = 0;
 
     document.querySelectorAll('.subject-card, .subject-list-item').forEach(el => {
       const name = (el.dataset.name || el.textContent).toLowerCase();
       const match = name.includes(query);
       el.classList.toggle('hidden', !match);
-      if (match && el.classList.contains('subject-card')) visible++;
-      if (match && el.classList.contains('subject-list-item') && isListView) visible++;
+      if (match && el.matches(activeClass)) visible++;
     });
 
-    // Count visible in active view
-    const activeClass = isListView ? '.subject-list-item' : '.subject-card';
-    visible = document.querySelectorAll(activeClass + ':not(.hidden)').length;
     noResults.style.display = visible === 0 ? 'block' : 'none';
   });
 
-  // Toggle view
+  // ── Toggle view (existing behaviour) ─────────────────────────────────────
   changeViewBtn.addEventListener('click', () => {
     isListView = !isListView;
     document.body.classList.toggle('list-view', isListView);
@@ -507,11 +537,55 @@
       ? 'Change View <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>'
       : 'Change View <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
 
-    // Re-check no-results for new view
     const activeClass = isListView ? '.subject-list-item' : '.subject-card';
     const visible = document.querySelectorAll(activeClass + ':not(.hidden)').length;
     noResults.style.display = visible === 0 ? 'block' : 'none';
   });
+
+  // ── Highlight subject from homepage search ────────────────────────────────
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  function highlightSubject(subjectParam) {
+    // subjectParam matches the data-name value on the card/list item
+    const cardMatch = document.querySelector(`.subject-card[data-name="${subjectParam}"]`);
+    const listMatch = document.querySelector(`.subject-list-item[data-name="${subjectParam}"]`);
+    const target    = cardMatch || listMatch;
+
+    if (!target) return;
+
+    // Apply highlight class to both card and list versions
+    if (cardMatch) cardMatch.classList.add('search-highlight');
+    if (listMatch) listMatch.classList.add('search-highlight');
+
+    // Scroll the visible one into view smoothly
+    const visibleTarget = isListView ? listMatch : cardMatch;
+    if (visibleTarget) {
+      setTimeout(() => {
+        visibleTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 80);
+    }
+
+    // Show a subtle toast
+    const label = (cardMatch || listMatch).textContent.trim();
+    showToast(`Showing: ${label}`);
+
+    // Remove highlight after 4 seconds
+    setTimeout(() => {
+      if (cardMatch) cardMatch.classList.remove('search-highlight');
+      if (listMatch) listMatch.classList.remove('search-highlight');
+    }, 4000);
+  }
+
+  // Read ?subject= from the URL on page load
+  const params = new URLSearchParams(window.location.search);
+  const subjectParam = params.get('subject');
+  if (subjectParam) {
+    highlightSubject(subjectParam);
+  }
 </script>
 
 </body>
