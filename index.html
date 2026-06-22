@@ -34,7 +34,6 @@
     min-height: 100vh;
   }
 
-  /* NAV */
   nav {
     display: flex;
     align-items: center;
@@ -86,7 +85,6 @@
   .nav-right a:hover { color: var(--indigo); }
   .nav-right svg { opacity: 0.6; }
 
-  /* PAGE LAYOUT */
   .page {
     min-height: calc(100vh - 108px);
     display: grid;
@@ -98,7 +96,6 @@
     align-items: center;
   }
 
-  /* LEFT COLUMN */
   .left { padding-right: 6rem; }
 
   h1 {
@@ -128,7 +125,6 @@
     margin-bottom: 3rem;
   }
 
-  /* SEARCH */
   .search-box {
     position: relative;
     margin-bottom: 3.75rem;
@@ -165,7 +161,6 @@
     box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
   }
 
-  /* open state — square bottom corners when dropdown is visible */
   .search-input.open {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -173,7 +168,6 @@
     box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
   }
 
-  /* DROPDOWN */
   .search-dropdown {
     display: none;
     position: absolute;
@@ -245,11 +239,7 @@
     margin-top: 1px;
   }
 
-  .item-arrow {
-    color: var(--slate-400);
-    flex-shrink: 0;
-  }
-
+  .item-arrow { color: var(--slate-400); flex-shrink: 0; }
   .dropdown-item:hover .item-arrow,
   .dropdown-item.active .item-arrow { color: var(--indigo); }
 
@@ -260,11 +250,7 @@
     text-align: center;
   }
 
-  /* STATS */
-  .stats {
-    display: flex;
-    gap: 3rem;
-  }
+  .stats { display: flex; gap: 3rem; }
 
   .stat-num {
     font-size: 2.025rem;
@@ -286,7 +272,6 @@
     align-self: stretch;
   }
 
-  /* RIGHT COLUMN — CARDS */
   .cards-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -346,7 +331,6 @@
 
   .card-arrow { color: var(--indigo); flex-shrink: 0; }
 
-  /* FOOTER DECORATION */
   .bg-blob {
     position: fixed;
     bottom: -120px;
@@ -361,7 +345,6 @@
     filter: blur(90px);
   }
 
-  /* UPLOAD NAV LINK */
   .upload-link {
     background: var(--white);
     border: 2.25px solid var(--slate-200);
@@ -377,7 +360,6 @@
     color: var(--indigo) !important;
   }
 
-  /* RESPONSIVE */
   @media (max-width: 760px) {
     nav { padding: 1.5rem 1.875rem; }
     .page {
@@ -399,7 +381,6 @@
 
 <div class="bg-blob"></div>
 
-<!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">
     <div class="logo-mark">
@@ -424,10 +405,8 @@
   </div>
 </nav>
 
-<!-- MAIN -->
 <div class="page">
 
-  <!-- LEFT -->
   <div class="left">
     <h1>Practice papers<br>for the <span>NSW HSC</span></h1>
     <div class="underline-accent"></div>
@@ -471,7 +450,6 @@
     </div>
   </div>
 
-  <!-- RIGHT — YEAR CARDS -->
   <div class="right">
     <div class="cards-grid">
 
@@ -533,80 +511,74 @@
 </div>
 
 <script>
-  // ─── Subject data ────────────────────────────────────────────────────────────
-  // Each entry: { name, year, href }
-  // Update href values to match your actual page filenames.
-  // Add or remove subjects as needed.
+  // ─── Subject data ─────────────────────────────────────────────────────────────
+  // href uses ?subject= so the destination page can highlight the right item.
+  // The subject value must match the data-name attribute on that page's cards.
   const SUBJECTS = [
     // Year 9
-    { name: "English",            year: "Year 9",  href: "Year 9 Home.html" },
-    { name: "Mathematics",        year: "Year 9",  href: "Year 9 Home.html" },
-    { name: "Science",            year: "Year 9",  href: "Year 9 Home.html" },
-    { name: "History",            year: "Year 9",  href: "Year 9 Home.html" },
-    { name: "Geography",          year: "Year 9",  href: "Year 9 Home.html" },
+    { name: "English",              year: "Year 9",              href: "Year 9 Home.html?subject=english" },
+    { name: "Mathematics",          year: "Year 9",              href: "Year 9 Home.html?subject=mathematics" },
+    { name: "Science",              year: "Year 9",              href: "Year 9 Home.html?subject=science" },
+    { name: "History",              year: "Year 9",              href: "Year 9 Home.html?subject=history" },
+    { name: "Geography",            year: "Year 9",              href: "Year 9 Home.html?subject=geography" },
     // Year 10
-    { name: "English",            year: "Year 10", href: "Year 10 Home.html" },
-    { name: "Mathematics",        year: "Year 10", href: "Year 10 Home.html" },
-    { name: "Science",            year: "Year 10", href: "Year 10 Home.html" },
-    { name: "History",            year: "Year 10", href: "Year 10 Home.html" },
-    { name: "Geography",          year: "Year 10", href: "Year 10 Home.html" },
-    // Year 11 Preliminary
-    { name: "English Advanced",   year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "English Standard",   year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "Mathematics Advanced",year: "Year 11 Preliminary",href: "Year 11 Home.html" },
-    { name: "Mathematics Standard",year: "Year 11 Preliminary",href: "Year 11 Home.html" },
-    { name: "Biology",            year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "Chemistry",          year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "Physics",            year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "Modern History",     year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "Ancient History",    year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "Economics",          year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "Business Studies",   year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "Legal Studies",      year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "Geography",          year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    { name: "PDHPE",              year: "Year 11 Preliminary", href: "Year 11 Home.html" },
-    // Year 12 HSC
-    { name: "English Advanced",   year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "English Standard",   year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Mathematics Advanced",year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Mathematics Standard 2",year: "Year 12 HSC",href: "Year 12 Home.html" },
-    { name: "Mathematics Extension 1",year: "Year 12 HSC",href: "Year 12 Home.html" },
-    { name: "Mathematics Extension 2",year: "Year 12 HSC",href: "Year 12 Home.html" },
-    { name: "Biology",            year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Chemistry",          year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Physics",            year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Modern History",     year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Ancient History",    year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Economics",          year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Business Studies",   year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Legal Studies",      year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Geography",          year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "PDHPE",              year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Society and Culture",year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Studies of Religion I", year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Studies of Religion II",year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Software Design and Development", year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Design and Technology", year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Visual Arts",        year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Music 1",            year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Music 2",            year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Drama",              year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Engineering Studies",year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Industrial Technology", year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Food Technology",    year: "Year 12 HSC", href: "Year 12 Home.html" },
-    { name: "Textiles and Design",year: "Year 12 HSC", href: "Year 12 Home.html" },
+    { name: "English",              year: "Year 10",             href: "Year 10 Home.html?subject=english" },
+    { name: "Mathematics",          year: "Year 10",             href: "Year 10 Home.html?subject=mathematics" },
+    { name: "Science",              year: "Year 10",             href: "Year 10 Home.html?subject=science" },
+    { name: "History",              year: "Year 10",             href: "Year 10 Home.html?subject=history" },
+    { name: "Geography",            year: "Year 10",             href: "Year 10 Home.html?subject=geography" },
+    // Year 11
+    { name: "English Advanced",     year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=english+advanced" },
+    { name: "English Standard",     year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=english+standard" },
+    { name: "Mathematics Advanced", year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=mathematics+advanced" },
+    { name: "Mathematics Standard", year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=mathematics+standard" },
+    { name: "Biology",              year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=biology" },
+    { name: "Chemistry",            year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=chemistry" },
+    { name: "Physics",              year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=physics" },
+    { name: "Economics",            year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=economics" },
+    { name: "Legal Studies",        year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=legal+studies" },
+    { name: "Modern History",       year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=modern+history" },
+    { name: "Ancient History",      year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=ancient+history" },
+    { name: "PDHPE",                year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=pdhpe" },
+    { name: "Business Studies",     year: "Year 11 Preliminary", href: "Year 11 Home.html?subject=business+studies" },
+    // Year 12
+    { name: "Agriculture",          year: "Year 12 HSC", href: "Year 12 Home.html?subject=agriculture" },
+    { name: "Ancient History",      year: "Year 12 HSC", href: "Year 12 Home.html?subject=ancient+history" },
+    { name: "Biology",              year: "Year 12 HSC", href: "Year 12 Home.html?subject=biology" },
+    { name: "Business Studies",     year: "Year 12 HSC", href: "Year 12 Home.html?subject=business+studies" },
+    { name: "Chemistry",            year: "Year 12 HSC", href: "Year 12 Home.html?subject=chemistry" },
+    { name: "Earth & Environmental Science", year: "Year 12 HSC", href: "Year 12 Home.html?subject=earth+environmental+science" },
+    { name: "Economics",            year: "Year 12 HSC", href: "Year 12 Home.html?subject=economics" },
+    { name: "Engineering Studies",  year: "Year 12 HSC", href: "Year 12 Home.html?subject=engineering+studies" },
+    { name: "English Advanced",     year: "Year 12 HSC", href: "Year 12 Home.html?subject=english+advanced" },
+    { name: "English Standard",     year: "Year 12 HSC", href: "Year 12 Home.html?subject=english+standard" },
+    { name: "English Ext 1",        year: "Year 12 HSC", href: "Year 12 Home.html?subject=english+ext+1+extension" },
+    { name: "History Extension",    year: "Year 12 HSC", href: "Year 12 Home.html?subject=history+extension" },
+    { name: "Investigating Science",year: "Year 12 HSC", href: "Year 12 Home.html?subject=investigating+science" },
+    { name: "IPT / Enterprise Computing", year: "Year 12 HSC", href: "Year 12 Home.html?subject=ipi+ipt+enterprise+computing" },
+    { name: "Legal Studies",        year: "Year 12 HSC", href: "Year 12 Home.html?subject=legal+studies" },
+    { name: "Languages (other than English)", year: "Year 12 HSC", href: "Year 12 Home.html?subject=lote+languages+other+than+english" },
+    { name: "Maths (2U)",           year: "Year 12 HSC", href: "Year 12 Home.html?subject=maths+2u+mathematics+advanced" },
+    { name: "Maths Ext 1",          year: "Year 12 HSC", href: "Year 12 Home.html?subject=maths+ext+1+extension+mathematics" },
+    { name: "Maths Ext 2",          year: "Year 12 HSC", href: "Year 12 Home.html?subject=maths+ext+2+extension+mathematics" },
+    { name: "Modern History",       year: "Year 12 HSC", href: "Year 12 Home.html?subject=modern+history" },
+    { name: "PDHPE",                year: "Year 12 HSC", href: "Year 12 Home.html?subject=pdhpe+personal+development+health+physical+education" },
+    { name: "Physics",              year: "Year 12 HSC", href: "Year 12 Home.html?subject=physics" },
+    { name: "Society & Culture",    year: "Year 12 HSC", href: "Year 12 Home.html?subject=society+culture" },
+    { name: "Software Engineering", year: "Year 12 HSC", href: "Year 12 Home.html?subject=software+engineering+design+development" },
+    { name: "Standard Maths",       year: "Year 12 HSC", href: "Year 12 Home.html?subject=standard+maths+mathematics" },
+    { name: "Studies of Religion 1",year: "Year 12 HSC", href: "Year 12 Home.html?subject=studies+of+religion+1" },
+    { name: "Studies of Religion 2",year: "Year 12 HSC", href: "Year 12 Home.html?subject=studies+of+religion+2" },
+    { name: "Visual Arts",          year: "Year 12 HSC", href: "Year 12 Home.html?subject=visual+arts" },
   ];
 
-  // Subject page icon SVG (book icon)
-  const ICON_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
+  const ICON_SVG  = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
   const ARROW_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
 
-  // ─── DOM refs ─────────────────────────────────────────────────────────────────
   const input    = document.getElementById('searchInput');
   const dropdown = document.getElementById('searchDropdown');
   let activeIndex = -1;
 
-  // ─── Filter & render ─────────────────────────────────────────────────────────
   function renderDropdown(query) {
     const q = query.trim().toLowerCase();
     if (!q) { closeDropdown(); return; }
@@ -636,7 +608,6 @@
     openDropdown();
   }
 
-  // Wrap matching text in a highlight span
   function highlight(text, query) {
     const idx = text.toLowerCase().indexOf(query);
     if (idx === -1) return text;
@@ -658,11 +629,9 @@
     activeIndex = -1;
   }
 
-  // ─── Keyboard navigation ──────────────────────────────────────────────────────
   input.addEventListener('keydown', (e) => {
     const items = dropdown.querySelectorAll('.dropdown-item');
     if (!dropdown.classList.contains('visible') || items.length === 0) return;
-
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       activeIndex = Math.min(activeIndex + 1, items.length - 1);
@@ -685,17 +654,12 @@
     if (activeIndex >= 0) items[activeIndex].scrollIntoView({ block: 'nearest' });
   }
 
-  // ─── Input event ─────────────────────────────────────────────────────────────
   input.addEventListener('input', () => renderDropdown(input.value));
 
-  // Close when clicking outside
   document.addEventListener('mousedown', (e) => {
-    if (!document.getElementById('searchBox').contains(e.target)) {
-      closeDropdown();
-    }
+    if (!document.getElementById('searchBox').contains(e.target)) closeDropdown();
   });
 
-  // Re-open on focus if there's already a query
   input.addEventListener('focus', () => {
     if (input.value.trim()) renderDropdown(input.value);
   });
